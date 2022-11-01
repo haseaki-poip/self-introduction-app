@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Introduction {
+  id      Int      @id @default(autoincrement())
+  name    String
+  affiliation String
+  introduction String @db.Text
+  hobby String
+  img_url String?
+  twitter_url String?
+  Instagram_url String?
+  github_url String?
+  lng Float
+  lat Float
+  createdAt DateTime? @default(now())
+}
