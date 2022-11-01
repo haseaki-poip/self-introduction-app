@@ -9,6 +9,10 @@ type Context = {
   >;
 };
 
+const lng_lat_threshold = 0.00035; // 同じ範囲とみなす経度・緯度の差
+const nowDate = new Date();
+const date_threshold = new Date(nowDate.setHours(nowDate.getHours() - 12)); // 12時間前まで
+
 const prisma = new PrismaClient();
 
 const typeDefs = gql`
@@ -27,18 +31,27 @@ const typeDefs = gql`
   }
 
   type Query {
-    introductions: [Introduction]!
+    getIntroductions(lng: Float!, lat: Float!): [Introduction]!
   }
 `;
 
 const resolvers = {
   Query: {
-    introductions: async (parent: undefined, args: {}, context: Context) => {
+    getIntroductions: async (
+      parent: undefined,
+      args: { lat: number },
+      context: Context
+    ) => {
       return await context.prisma.introduction.findMany({
         where: {
-          lat: {
-            gte: 1,
-            lt: 1,
+          AND: {
+            lat: {
+              lte: args.lat + lng_lat_threshold,
+              gte: args.lat - lng_lat_threshold,
+            },
+            createdAt: {
+              gt: date_threshold,
+            },
           },
         },
       });
