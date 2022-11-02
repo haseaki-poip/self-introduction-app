@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <GeolocationContext.Provider value={{ position, setPosition }}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </GeolocationContext.Provider>
   );
 }

@@ -31,6 +31,7 @@ export const useGeolocation = () => {
   }
 
   return {
+    position,
     getCurrentPosition,
   };
 };

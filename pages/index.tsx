@@ -1,9 +1,7 @@
 import { NextPage } from "next";
-import { useGeolocation } from "../src/hooks/useGeolocation";
+import StartButtons from "../src/components/StartButtons";
 
 const Home: NextPage = () => {
-  const { getCurrentPosition } = useGeolocation();
-
   return (
     <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
       <header className="border-b mb-8">
@@ -32,14 +30,7 @@ const Home: NextPage = () => {
             <p className="max-w-md text-gray-500 xl:text-lg leading-relaxed">
               自分の自己紹介カードを作成し、同じ空間にいる人の自己紹介カードを一括で入手できるアプリケーション
             </p>
-            <div className="pt-8">
-              <div
-                className="inline-flex items-center px-8 py-3 text-white transition bg-gray-900 rounded-full shadow-lg focus:outline-none focus:ring focus:bg-teal-600 hover:bg-gray-800"
-                onClick={() => getCurrentPosition()}
-              >
-                <span className="text-sm font-medium"> 位置情報取得　↓ </span>
-              </div>
-            </div>
+            <StartButtons />
           </div>
 
           <div className="w-full lg:w-2/3 flex mb-12">
