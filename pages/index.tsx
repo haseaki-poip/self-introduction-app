@@ -1,5 +1,38 @@
 import { NextPage } from "next";
+import { useEffect, useRef, useState } from "react";
+
+type GeolocationType = {
+  latitude: number | null;
+  longitude: number | null;
+};
 const Home: NextPage = () => {
+  const [isAvailable, setAvailable] = useState(false);
+  const [position, setPosition] = useState<GeolocationType>({
+    latitude: null,
+    longitude: null,
+  });
+
+  // useEffectが実行されているかどうかを判定するために用意しています
+  const isFirstRef = useRef(true);
+
+  /*
+   * ページ描画時にGeolocation APIが使えるかどうかをチェックしています
+   * もし使えなければその旨のエラーメッセージを表示させます
+   */
+  useEffect(() => {
+    isFirstRef.current = false;
+    if ("geolocation" in navigator) {
+      setAvailable(true);
+    }
+  }, [isAvailable]);
+
+  const getCurrentPosition = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setPosition({ latitude: latitude, longitude: longitude });
+    });
+  };
+
   return (
     <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
       <header className="border-b mb-8">
@@ -13,21 +46,32 @@ const Home: NextPage = () => {
         </div>
       </header>
 
-      <section className="max-w-screen-2xl px-4 md:px-8 mx-auto mt-20 sm:mt-0">
-        <div className="flex flex-wrap justify-between mb-36 md:mb-16">
+      <section className="max-w-screen-2xl px-4 md:px-8 mx-auto mt-12 sm:mt-0">
+        <div className="flex flex-wrap justify-between mb-20 md:mb-16">
           <div className="w-full lg:w-1/3 flex flex-col justify-center lg:pt-48 lg:pb-24 mb-12 lg:mb-0">
-            <h1 className="text-black-800 text-4xl sm:text-5xl md:text-6xl font-bold mb-12 md:mb-8">
+            <h1 className="text-black-800 text-6xl font-bold mb-8 hidden md:block">
               Exchange-
               <br />
               Self Introduction
+            </h1>
+            <h1 className="text-black-800 text-6xl font-bold mb-8 block md:hidden">
+              E-SInt
             </h1>
 
             <p className="max-w-md text-gray-500 xl:text-lg leading-relaxed">
               自分の自己紹介カードを作成し、同じ空間にいる人の自己紹介カードを一括で入手できるアプリケーション
             </p>
+            <div className="pt-8">
+              <div
+                className="inline-flex items-center px-8 py-3 text-white transition bg-gray-900 rounded-full shadow-lg focus:outline-none focus:ring focus:bg-teal-600 hover:bg-gray-800"
+                onClick={() => getCurrentPosition()}
+              >
+                <span className="text-sm font-medium"> 位置情報取得　↓ </span>
+              </div>
+            </div>
           </div>
 
-          <div className="w-full lg:w-2/3 flex mb-12 md:mb-16">
+          <div className="w-full lg:w-2/3 flex mb-12">
             <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden relative z-10 top-12 md:top-16 left-12 md:left-16 -ml-12 lg:ml-0">
               <img
                 src="https://images.unsplash.com/photo-1542340916-951bb72c8f74?auto=format&q=75&fit=crop&w=550&h=550"
