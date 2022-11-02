@@ -39,7 +39,7 @@ const resolvers = {
   Query: {
     getIntroductions: async (
       parent: undefined,
-      args: { lat: number },
+      args: { lat: number; lng: number },
       context: Context
     ) => {
       return await context.prisma.introduction.findMany({
@@ -48,6 +48,10 @@ const resolvers = {
             lat: {
               lte: args.lat + lng_lat_threshold,
               gte: args.lat - lng_lat_threshold,
+            },
+            lng: {
+              lte: args.lng + lng_lat_threshold,
+              gte: args.lng - lng_lat_threshold,
             },
             createdAt: {
               gt: date_threshold,
