@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import StartButtons from "../src/components/StartButtons";
+import StartButtons from "../src/components/Home/StartButtons";
 
 const Home: NextPage = () => {
   return (
