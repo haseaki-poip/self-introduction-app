@@ -1,37 +1,8 @@
 import { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useGeolocation } from "../src/hooks/useGeolocation";
 
-type GeolocationType = {
-  latitude: number | null;
-  longitude: number | null;
-};
 const Home: NextPage = () => {
-  const [isAvailable, setAvailable] = useState(false);
-  const [position, setPosition] = useState<GeolocationType>({
-    latitude: null,
-    longitude: null,
-  });
-
-  // useEffectが実行されているかどうかを判定するために用意しています
-  const isFirstRef = useRef(true);
-
-  /*
-   * ページ描画時にGeolocation APIが使えるかどうかをチェックしています
-   * もし使えなければその旨のエラーメッセージを表示させます
-   */
-  useEffect(() => {
-    isFirstRef.current = false;
-    if ("geolocation" in navigator) {
-      setAvailable(true);
-    }
-  }, [isAvailable]);
-
-  const getCurrentPosition = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setPosition({ latitude: latitude, longitude: longitude });
-    });
-  };
+  const { position, getCurrentPosition } = useGeolocation();
 
   return (
     <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
