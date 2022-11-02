@@ -1,15 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { GeolocationContext } from "../../pages/_app";
 
-type GeolocationType = {
-  latitude: number | null;
-  longitude: number | null;
-};
 export const useGeolocation = () => {
   const [isAvailable, setAvailable] = useState(false);
-  const [position, setPosition] = useState<GeolocationType>({
-    latitude: null,
-    longitude: null,
-  });
+  const { position, setPosition } = useContext(GeolocationContext);
 
   // useEffectが実行されているかどうかを判定するために用意しています
   const isFirstRef = useRef(true);
@@ -32,8 +26,11 @@ export const useGeolocation = () => {
     });
   };
 
+  if (!isFirstRef && !isAvailable) {
+    alert("位置情報が取得できないためアプリを続けることができません");
+  }
+
   return {
-    position,
     getCurrentPosition,
   };
 };

@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useGeolocation } from "../src/hooks/useGeolocation";
 
 const Home: NextPage = () => {
-  const { position, getCurrentPosition } = useGeolocation();
+  const { getCurrentPosition } = useGeolocation();
 
   return (
     <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
