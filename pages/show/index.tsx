@@ -37,12 +37,12 @@ const Show: NextPage = () => {
         <h2 className="text-gray-800 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">
           Gallery
         </h2>
-        {introductions.map((introduction, key) => (
-          <div
-            key={key}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 xl:gap-8 mb-4 md:mb-8"
-          >
-            <div className="group h-48 md:h-80 flex items-end bg-gray-100 overflow-hidden rounded-lg shadow-lg relative">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 xl:gap-8 mb-4 md:mb-8">
+          {introductions.map((introduction, key) => (
+            <div
+              key={key}
+              className="group h-48 md:h-80 flex items-end bg-gray-100 overflow-hidden rounded-lg shadow-lg relative"
+            >
               <img
                 src={introduction.img_url ?? "/images/NoImage.png"}
                 loading="lazy"
@@ -54,8 +54,8 @@ const Show: NextPage = () => {
                 {introduction.name}
               </span>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         <div className="flex justify-between items-start sm:items-center gap-8">
           <p className="max-w-screen-sm text-gray-500 text-sm lg:text-base">
