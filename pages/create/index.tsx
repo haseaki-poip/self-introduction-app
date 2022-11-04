@@ -8,8 +8,6 @@ const Create: NextPage = () => {
   const [createObjectURL, setCreateObjectURL] = useState<string>();
 
   const postImage = async (image: File) => {
-    let uploadResult = "";
-
     if (image.name) {
       const storageRef = ref(storage);
       const ext = image.name.split(".").pop();
@@ -17,17 +15,13 @@ const Create: NextPage = () => {
       const fullPath = "/images/" + hashName + "." + ext;
       const uploadRef = ref(storageRef, fullPath);
 
-      // 'file' comes from the Blob or File API
-      await uploadBytes(uploadRef, image).then(async function (result) {
-        console.log(result);
-        console.log("Uploaded a blob or file!");
+      await uploadBytes(uploadRef, image);
+      const img_url = await getDownloadURL(uploadRef);
 
-        await getDownloadURL(uploadRef).then(function (url) {
-          uploadResult = url;
-        });
-      });
+      return img_url;
     }
-    return uploadResult;
+
+    throw new Error("NoImageName");
   };
 
   const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +30,30 @@ const Create: NextPage = () => {
 
       setImage(file);
       const url = URL.createObjectURL(file);
-      console.log(url);
       setCreateObjectURL(url);
     }
   };
 
   const uploadToServer = async () => {
-    if (image) {
-      const result = await postImage(image);
-      console.log(result);
+    try {
+      if (image) {
+        const img_url = await postImage(image!);
+        console.log(img_url);
+      }
+    } catch (e) {
+      let alertMessage = "";
+      switch (e) {
+        case "NoImageName":
+          alertMessage = "画像を読み込むことができませんでした。";
+          break;
+        case "NoName":
+          alertMessage = "名前を入力してください。";
+          break;
+        default:
+          alertMessage = "予期せぬエラーが発生しました。";
+      }
+
+      alert(alertMessage);
     }
   };
 
