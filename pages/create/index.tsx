@@ -1,6 +1,19 @@
 import { NextPage } from "next";
+import { ChangeEvent, useState } from "react";
 
 const Create: NextPage = () => {
+  const [image, setImage] = useState<File>();
+  const [createObjectURL, setCreateObjectURL] = useState<string>();
+  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      setImage(file);
+      const url = URL.createObjectURL(file);
+      console.log(url);
+      setCreateObjectURL(url);
+    }
+  };
   return (
     <div className="py-20 h-screen bg-gray-300 px-2">
       <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
@@ -10,15 +23,26 @@ const Create: NextPage = () => {
               <div className="relative h-32 w-32 rounded-lg border-2 border-blue-700 bg-gray-100 flex justify-center items-center">
                 <div className="absolute">
                   <div className="flex flex-col items-center">
-                    <div className="mb-4"></div>
-
                     <label
                       htmlFor="file-input"
-                      className="bg-primary-900 text-white-900 dark:bg-dark-900 flex justify-center items-center px-4 py-2 rounded mb-6 w-full"
+                      className="bg-primary-900 text-white-900 dark:bg-dark-900 flex justify-center items-center px-10 py-10"
                     >
+                      <img
+                        className="w-full h-full object-cover object-center absolute inset-0 rounded-lg"
+                        src={createObjectURL}
+                      />
+                      <input
+                        id="file-input"
+                        className="hidden"
+                        type="file"
+                        accept="image/*"
+                        name="myImage"
+                        onChange={(e) => uploadToClient(e)}
+                      />
+
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-10 w-10 hover:cursor-pointer hover:bg-gray-700"
+                        className="h-10 w-10 hover:cursor-pointer rounded-lg"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -33,11 +57,11 @@ const Create: NextPage = () => {
                     </label>
                   </div>
                 </div>
-                <input
+                {/* <input
                   type="file"
                   className="h-full w-full opacity-0"
                   name=""
-                />
+                /> */}
               </div>
             </div>
             <div className="mb-1">
