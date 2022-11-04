@@ -44,9 +44,8 @@ const Show: NextPage = () => {
           >
             <div className="group h-48 md:h-80 flex items-end bg-gray-100 overflow-hidden rounded-lg shadow-lg relative">
               <img
-                src="/images/NoImage.png"
+                src={introduction.img_url ?? "/images/NoImage.png"}
                 loading="lazy"
-                alt="Photo by Magicle"
                 className="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200"
               />
               <div className="bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50 absolute inset-0 pointer-events-none"></div>
