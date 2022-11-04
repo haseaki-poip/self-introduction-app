@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useContext } from "react";
 import { GeolocationContext } from "../_app";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { IntroductionType } from "../../src/types/type";
 
 const GET_Introductions = gql`

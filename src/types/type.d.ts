@@ -33,3 +33,7 @@ export type InputIntroductionType = {
   lng: number;
   lat: number;
 };
+
+export type SendIntroductionType = InputIntroductionType & {
+  img_url: string | null;
+};
