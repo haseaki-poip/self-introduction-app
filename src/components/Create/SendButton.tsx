@@ -1,17 +1,29 @@
 import { useState } from "react";
 import { postImage } from "../../../firebase/storage";
 import { InputIntroductionType } from "../../types/type";
+import { gql, useMutation } from "@apollo/client";
 
 type PropsType = {
   image: File | undefined;
   inputData: InputIntroductionType;
 };
 
+const Add_Introduction = gql`
+  mutation ($input: AddIntroductionInput!) {
+    addIntroduction(input: $input) {
+      id
+    }
+  }
+`;
+
 const SendButton = ({ image, inputData }: PropsType) => {
-  const [isPush, setIsPush] = useState(false);
+  const [isSend, setIsSend] = useState(false);
+  const [addIntroductionData] = useMutation(Add_Introduction);
 
   const uploadToServer = async () => {
     try {
+      setIsSend(true); // loadingを表示させる
+
       if (!inputData.name) {
         throw new Error("NoName");
       }
@@ -20,7 +32,14 @@ const SendButton = ({ image, inputData }: PropsType) => {
         ...inputData,
         img_url: img_url,
       };
-      console.log(sendData);
+
+      const { data } = await addIntroductionData({
+        variables: {
+          input: sendData,
+        },
+      });
+
+      console.log(data.addIntroduction.id);
     } catch (e) {
       // throwされたものの型はunknowである。e instanceof Errorがtureとなればthrowされたもの
       if (!(e instanceof Error)) {
@@ -40,6 +59,7 @@ const SendButton = ({ image, inputData }: PropsType) => {
           alertMessage = "予期せぬエラーが発生しました。";
       }
 
+      setIsSend(false);
       return alert(alertMessage);
     }
   };

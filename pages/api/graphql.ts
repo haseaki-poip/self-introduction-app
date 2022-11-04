@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ApolloServer, gql } from "apollo-server-micro";
 import { PrismaClient, Prisma } from "@prisma/client";
+import { SendIntroductionType } from "../../src/types/type";
 type Context = {
   prisma: PrismaClient<
     Prisma.PrismaClientOptions,
@@ -33,6 +34,23 @@ const typeDefs = gql`
   type Query {
     getIntroductions(lng: Float!, lat: Float!): [Introduction]!
   }
+
+  input AddIntroductionInput {
+    name: String!
+    affiliation: String!
+    introduction: String!
+    hobby: String!
+    img_url: String
+    twitter_url: String
+    Instagram_url: String
+    github_url: String
+    lng: Float!
+    lat: Float!
+  }
+
+  type Mutation {
+    addIntroduction(input: AddIntroductionInput!): Introduction!
+  }
 `;
 
 const resolvers = {
@@ -59,6 +77,19 @@ const resolvers = {
           },
         },
       });
+    },
+  },
+  Mutation: {
+    addIntroduction: async (
+      parent: undefined,
+      { input }: { input: SendIntroductionType },
+      context: Context
+    ) => {
+      const newIntroduction = await context.prisma.introduction.create({
+        data: input,
+      });
+
+      return newIntroduction;
     },
   },
 };
