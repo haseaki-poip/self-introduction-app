@@ -1,9 +1,35 @@
 import { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
+import { storage } from "../../firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Create: NextPage = () => {
   const [image, setImage] = useState<File>();
   const [createObjectURL, setCreateObjectURL] = useState<string>();
+
+  const postImage = async (image: File) => {
+    let uploadResult = "";
+
+    if (image.name) {
+      const storageRef = ref(storage);
+      const ext = image.name.split(".").pop();
+      const hashName = Math.random().toString(36).slice(-8);
+      const fullPath = "/images/" + hashName + "." + ext;
+      const uploadRef = ref(storageRef, fullPath);
+
+      // 'file' comes from the Blob or File API
+      await uploadBytes(uploadRef, image).then(async function (result) {
+        console.log(result);
+        console.log("Uploaded a blob or file!");
+
+        await getDownloadURL(uploadRef).then(function (url) {
+          uploadResult = url;
+        });
+      });
+    }
+    return uploadResult;
+  };
+
   const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -14,6 +40,14 @@ const Create: NextPage = () => {
       setCreateObjectURL(url);
     }
   };
+
+  const uploadToServer = async () => {
+    if (image) {
+      const result = await postImage(image);
+      console.log(result);
+    }
+  };
+
   return (
     <div className="py-20 h-screen bg-gray-300 px-2">
       <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
@@ -84,7 +118,10 @@ const Create: NextPage = () => {
             </div>
 
             <div className="mt-3 text-right">
-              <button className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700">
+              <button
+                className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700"
+                onClick={() => uploadToServer()}
+              >
                 Create
               </button>
             </div>
