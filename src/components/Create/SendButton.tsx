@@ -22,7 +22,7 @@ const SendButton = ({ image, inputData }: PropsType) => {
 
   const uploadToServer = async () => {
     try {
-      setIsSend(true); // loadingを表示させる
+      setIsSend(true); // loadingマークを表示させる
 
       if (!inputData.name) {
         throw new Error("NoName");
@@ -70,7 +70,13 @@ const SendButton = ({ image, inputData }: PropsType) => {
         className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700"
         onClick={() => uploadToServer()}
       >
-        作成
+        {isSend ? (
+          <div className="flex justify-center">
+            <div className="my-auto animate-spin h-6 w-6 border-2 border-white rounded-full border-t-transparent"></div>
+          </div>
+        ) : (
+          "作成"
+        )}
       </button>
     </div>
   );
