@@ -44,7 +44,7 @@ const Show: NextPage = () => {
           >
             <div className="group h-48 md:h-80 flex items-end bg-gray-100 overflow-hidden rounded-lg shadow-lg relative">
               <img
-                src={introduction.img_url}
+                src={introduction.img_url ?? "/images/NoImage.png"}
                 loading="lazy"
                 className="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200"
               />
