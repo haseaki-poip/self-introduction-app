@@ -3,6 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useContext } from "react";
 import { ViewIdContext } from "../../../pages/_app";
 import { IntroductionType } from "../../types/type";
+import SnsLinks from "./SnsLinks";
 
 const GET_Introduction = gql`
   query ($introductionId: Int!) {
@@ -34,7 +35,6 @@ const IntroductionCard = () => {
   }
 
   const { Introduction }: { Introduction: IntroductionType } = data;
-  console.log(Introduction);
 
   return (
     <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-28 lg:my-0">
@@ -45,7 +45,7 @@ const IntroductionCard = () => {
         <div className="lg:w-8/12 p-4 md:p-12 text-center lg:text-left">
           <div className="h-48 w-48 relative mx-auto -mt-16 flex lg:hidden">
             <img
-              src="https://source.unsplash.com/MP0IUfwrn0A"
+              src={Introduction.img_url ?? "/images/NoImage.png"}
               className="w-full h-full object-cover object-center absolute inset-0 rounded-full"
             />
           </div>
@@ -85,59 +85,16 @@ const IntroductionCard = () => {
 
           <p className="pt-8 text-xl">{Introduction.introduction}</p>
 
-          <div className="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-center lg:justify-start">
-            <a
-              className="link px-3"
-              href="#"
-              data-tippy-content="@twitter_handle"
-            >
-              <svg
-                className="h-6 fill-current text-gray-600 hover:text-green-700"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Twitter</title>
-                <path d={iconPathList.twitter} />
-              </svg>
-            </a>
-            <a
-              className="link px-3"
-              href="#"
-              data-tippy-content="@github_handle"
-            >
-              <svg
-                className="h-6 fill-current text-gray-600 hover:text-green-700"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>GitHub</title>
-                <path d={iconPathList.github} />
-              </svg>
-            </a>
-
-            <a
-              className="link px-3"
-              href="#"
-              data-tippy-content="@instagram_handle"
-            >
-              <svg
-                className="h-6 fill-current text-gray-600 hover:text-green-700"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Instagram</title>
-                <path d={iconPathList.Instagram} />
-              </svg>
-            </a>
-          </div>
+          <SnsLinks
+            twitter_url={Introduction.twitter_url}
+            github_url={Introduction.github_url}
+            Instagram_url={Introduction.Instagram_url}
+          />
         </div>
         <div className="flex justify-center items-center">
           <div className="w-full lg:w-[240px] lg:h-[240px] relative">
             <img
-              src="https://source.unsplash.com/MP0IUfwrn0A"
+              src={Introduction.img_url ?? "/images/NoImage.png"}
               className="w-full h-full object-cover object-center absolute inset-0 rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
             />
           </div>
