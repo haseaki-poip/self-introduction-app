@@ -3,12 +3,12 @@ import StartButtons from "../src/components/Home/StartButtons";
 
 const Home: NextPage = () => {
   return (
-    <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+    <div className="bg-white pb-6 sm:pb-8">
       <header className="border-b mb-8">
         <div className="max-w-screen-2xl flex justify-between items-center px-4 md:px-8 mx-auto my-4">
           <a
             href="/"
-            className="text-gray-500 inline-flex items-center text-black-800 text-2xl md:text-3xl font-bold gap-2.5"
+            className="text-green-900 inline-flex items-center text-black-800 text-2xl md:text-3xl font-bold gap-2.5"
           >
             E-SInt
           </a>
@@ -17,15 +17,13 @@ const Home: NextPage = () => {
 
       <section className="max-w-screen-2xl px-4 md:px-8 mx-auto mt-12 sm:mt-0">
         <div className="flex flex-wrap justify-between mb-20 md:mb-16">
-          <div className="w-full lg:w-1/3 flex flex-col justify-center lg:pt-48 lg:pb-24 mb-12 lg:mb-0">
-            <h1 className="text-black-800 text-6xl font-bold mb-8 hidden md:block">
+          <div className="text-green-900 w-full lg:w-1/3 flex flex-col justify-center lg:pt-48 lg:pb-24 mb-12 lg:mb-0">
+            <h1 className="text-6xl font-bold mb-8 hidden md:block">
               Exchange-
               <br />
               Self Introduction
             </h1>
-            <h1 className="text-black-800 text-6xl font-bold mb-8 block md:hidden">
-              E-SInt
-            </h1>
+            <h1 className="text-6xl font-bold mb-8 block md:hidden">E-SInt</h1>
 
             <p className="max-w-md text-gray-500 xl:text-lg leading-relaxed">
               自分の自己紹介カードを作成し、同じ空間にいる人の自己紹介カードを一括で入手できるアプリケーション
@@ -33,22 +31,21 @@ const Home: NextPage = () => {
             <StartButtons />
           </div>
 
-          <div className="w-full lg:w-2/3 flex mb-12">
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden relative z-10 top-12 md:top-16 left-12 md:left-16 -ml-12 lg:ml-0">
+          <div className="w-full lg:w-2/3 lg:pt-12 flex mb-12">
+            <div className="rounded-lg overflow-hidden relative z-10 top-12 lg:top-56 left-12 md:left-32 -ml-12 lg:ml-0">
               <img
-                src="https://images.unsplash.com/photo-1542340916-951bb72c8f74?auto=format&q=75&fit=crop&w=550&h=550"
-                loading="lazy"
-                alt="Photo by Kaung Htet"
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-
-            <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1586295166487-b265f7e83a7f?auto=format&q=75&fit=crop&w=550&h=550"
+                src="/images/card_wide.png"
                 loading="lazy"
                 alt="Photo by Manny Moreno"
-                className="w-full h-full object-cover object-center"
+                className=""
+              />
+            </div>
+            <div className="rounded-lg overflow-hidden">
+              <img
+                src="/images/card_short.png"
+                loading="lazy"
+                alt="Photo by Manny Moreno"
+                className=""
               />
             </div>
           </div>
