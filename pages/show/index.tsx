@@ -22,9 +22,6 @@ const Show: NextPage = () => {
         ) : null}
 
         <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
-          <h2 className="text-green-900 text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-8 xl:mb-12">
-            Introductions
-          </h2>
           <Gallery />
         </div>
       </div>

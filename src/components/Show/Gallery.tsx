@@ -3,6 +3,7 @@ import { GeolocationContext, ViewIdContext } from "../../../pages/_app";
 import { gql, useQuery } from "@apollo/client";
 import { IntroductionType } from "../../types/type";
 import { useRedirect } from "../../hooks/useRedirect";
+import { iconPathList } from "../../lib/IconPathList";
 
 const GET_Introductions = gql`
   query ($lng: Float!, $lat: Float!) {
@@ -18,45 +19,64 @@ const Gallery = () => {
   useRedirect();
   const { position } = useContext(GeolocationContext);
   const { setViewId } = useContext(ViewIdContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isReloading, setIsReloading] = useState(false);
+  if (position.latitude == null || position.longitude == null) {
+    return null;
+  }
 
   let introductions: IntroductionType[] = [];
 
-  const getIntroductions_graphql = () => {
-    const { data, loading, error } = useQuery(GET_Introductions, {
-      // データの追加後など古いキャッシュにより更新されていないデータとなるためfetchPolicyを設定し、最新データをとってくるようにする
-      fetchPolicy: "network-only",
-      variables: { lng: position.longitude, lat: position.latitude },
-    });
+  const { data, loading, error, refetch } = useQuery(GET_Introductions, {
+    // データの追加後など古いキャッシュにより更新されていないデータとなるためfetchPolicyを設定し、最新データをとってくるようにする
+    fetchPolicy: "network-only",
+    variables: { lng: position.longitude, lat: position.latitude },
+  });
 
-    if (loading) return;
-
-    if (error) return alert("エラーが発生しデータが取得できませんでした。");
-
-    const { Introductions } = data;
-    introductions = Introductions;
-    return;
-  };
-
-  if (position.latitude && position.longitude) {
-    getIntroductions_graphql();
+  if (loading || isReloading) {
+    return (
+      <div className="w-full flex items-center justify-center">
+        <div className="my-auto animate-spin h-20 w-20 border-4 border-gray-500 rounded-full border-t-transparent"></div>
+      </div>
+    );
   }
 
-  useEffect(() => {
-    // getIntroductions_graphql()のなかでsetIsLoading(false)をすると無限ループが起こる。
-    // その対処としてアロー関数を用い() => setIsLoading(false)とすると、set後にレンダリングが行われないため
-    // 反映されずLoadingマークが消えない。よってuseEffect内でsetする。
-    if (!introductions.length) return;
-    setIsLoading(false);
-  }, [introductions]);
+  if (error) {
+    alert("エラーが発生し読み込むことができませんした。");
+    return null;
+  }
+
+  const { Introductions } = data;
+  introductions = Introductions;
+
+  const reload = async () => {
+    setIsReloading(true);
+    const data = await refetch({
+      // refetchを使用することでどこでもuseQueryと同様に最新のデータを取得できる。
+      lng: position.longitude!,
+      lat: position.latitude!,
+    });
+    const { Introductions } = data.data;
+    introductions = Introductions;
+    setIsReloading(false);
+  };
 
   return (
     <div>
-      {isLoading ? (
-        <div className="w-full flex items-center justify-center">
-          <div className="my-auto animate-spin h-20 w-20 border-4 border-gray-500 rounded-full border-t-transparent"></div>
-        </div>
-      ) : null}
+      <div
+        className="flex justify-center mb-4 md:mb-8 xl:mb-12"
+        onClick={() => reload()}
+      >
+        <h2 className="text-green-900 text-3xl font-bold text-center items-center">
+          Introductions
+        </h2>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="mx-5 w-8 h-8 fill-current text-green-900"
+          viewBox="0 0 512 512"
+        >
+          <path d={iconPathList.reload} />
+        </svg>
+      </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 xl:gap-8 mb-4 md:mb-8">
         {introductions.map((introduction, key) => (
