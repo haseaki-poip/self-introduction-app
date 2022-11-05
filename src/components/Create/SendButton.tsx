@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { postImage } from "../../../firebase/storage";
 import { InputIntroductionType } from "../../types/type";
 import { gql, useMutation } from "@apollo/client";
+import { ViewIdContext } from "../../../pages/_app";
+import { useRouter } from "next/router";
 
 type PropsType = {
   image: File | undefined;
@@ -19,6 +21,8 @@ const Add_Introduction = gql`
 const SendButton = ({ image, inputData }: PropsType) => {
   const [isSend, setIsSend] = useState(false);
   const [addIntroductionData] = useMutation(Add_Introduction);
+  const { setViewId } = useContext(ViewIdContext);
+  const router = useRouter();
 
   const uploadToServer = async () => {
     try {
@@ -39,7 +43,8 @@ const SendButton = ({ image, inputData }: PropsType) => {
         },
       });
 
-      console.log(data.addIntroduction.id);
+      setViewId(data.addIntroduction.id);
+      router.push("/show");
     } catch (e) {
       // throwされたものの型はunknowである。e instanceof Errorがtureとなればthrowされたもの
       if (!(e instanceof Error)) {

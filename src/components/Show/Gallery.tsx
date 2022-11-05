@@ -21,6 +21,8 @@ const Gallery = () => {
 
   const getIntroductions_graphql = () => {
     const { data, loading, error } = useQuery(GET_Introductions, {
+      // データの追加後など古いキャッシュにより更新されていないデータとなるためfetchPolicyを設定し、最新データをとってくるようにする
+      fetchPolicy: "network-only",
       variables: { lng: position.longitude, lat: position.latitude },
     });
 
