@@ -18,7 +18,7 @@ const prisma = new PrismaClient();
 
 const typeDefs = gql`
   type Introduction {
-    id: ID!
+    id: Int!
     name: String!
     affiliation: String!
     introduction: String!
@@ -32,7 +32,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    getIntroductions(lng: Float!, lat: Float!): [Introduction]!
+    Introduction(id: Int!): Introduction!
+    Introductions(lng: Float!, lat: Float!): [Introduction]!
   }
 
   input AddIntroductionInput {
@@ -55,7 +56,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getIntroductions: async (
+    Introductions: async (
       parent: undefined,
       args: { lat: number; lng: number },
       context: Context
@@ -78,7 +79,20 @@ const resolvers = {
         },
       });
     },
+
+    Introduction: async (
+      parent: undefined,
+      { id }: { id: number },
+      context: Context
+    ) => {
+      return await context.prisma.introduction.findUnique({
+        where: {
+          id,
+        },
+      });
+    },
   },
+
   Mutation: {
     addIntroduction: async (
       parent: undefined,

@@ -16,13 +16,13 @@ export type ViewIdContextType = {
 export type IntroductionType = {
   id: number;
   name: string;
-  affiliation?: string;
-  introduction?: string;
-  hobby?: string;
+  affiliation: string;
+  introduction: string;
+  hobby: string;
   img_url: string | null;
-  twitter_url?: string | null;
-  Instagram_url?: string | null;
-  github_url?: string | null;
+  twitter_url: string | null;
+  Instagram_url: string | null;
+  github_url: string | null;
   lng?: number;
   lat?: number;
 };
