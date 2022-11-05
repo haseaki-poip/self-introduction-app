@@ -8,6 +8,11 @@ export type GeolocationContextType = {
   setPosition: (position: GeolocationType) => void;
 };
 
+export type ViewIdContextType = {
+  viewId: number | null;
+  setViewId: (viewId: number | null) => void;
+};
+
 export type IntroductionType = {
   id: number;
   name: string;

@@ -11,7 +11,7 @@ const Modal = ({ children, closeModal }: PropsType) => {
         onClick={() => closeModal()}
       ></div>
       <p className="text-right p-5 text-base">✖️</p>
-      <div className="relative ">{children}</div>
+      <div className="sticky">{children}</div>
     </div>
   );
 };
