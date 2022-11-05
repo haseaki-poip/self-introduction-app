@@ -32,7 +32,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getIntroductions(lng: Float!, lat: Float!): [Introduction]!
+    Introductions(lng: Float!, lat: Float!): [Introduction]!
   }
 
   input AddIntroductionInput {
@@ -55,7 +55,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getIntroductions: async (
+    Introductions: async (
       parent: undefined,
       args: { lat: number; lng: number },
       context: Context

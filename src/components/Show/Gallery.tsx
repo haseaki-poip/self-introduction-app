@@ -5,7 +5,7 @@ import { IntroductionType } from "../../types/type";
 
 const GET_Introductions = gql`
   query ($lng: Float!, $lat: Float!) {
-    getIntroductions(lng: $lng, lat: $lat) {
+    Introductions(lng: $lng, lat: $lat) {
       id
       name
       img_url
@@ -26,8 +26,8 @@ const Gallery = () => {
 
     if (loading) return;
     if (error) return;
-    const { getIntroductions } = data;
-    introductions = getIntroductions;
+    const { Introductions } = data;
+    introductions = Introductions;
   };
 
   getIntroductions_graphql();
