@@ -1,6 +1,6 @@
 const IntroductionCard = () => {
   return (
-    <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
+    <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-28 lg:my-0">
       <div
         id="profile"
         className="w-full lg:w-11/12 lg:flex rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white mx-6 lg:mx-0 lg:py-10"

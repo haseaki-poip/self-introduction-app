@@ -5,7 +5,7 @@ import Modal from "../src/components/Modal";
 const Test: NextPage = () => {
   return (
     <div>
-      <Modal>
+      <Modal closeModal={() => console.log("s")}>
         <IntroductionCard />
       </Modal>
       qqq
