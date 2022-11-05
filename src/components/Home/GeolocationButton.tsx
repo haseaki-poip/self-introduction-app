@@ -9,7 +9,7 @@ const GeolocationButton = ({ getCurrentPosition }: PropsType) => {
   return (
     <div className="flex">
       <div
-        className="inline-flex items-center px-8 py-3 text-white transition bg-gray-900 rounded-full shadow-lg focus:outline-none focus:ring focus:bg-teal-600 hover:bg-gray-800"
+        className="inline-flex items-center px-8 py-3 text-white transition bg-green-900 rounded-full shadow-lg focus:outline-none focus:ring focus:bg-teal-600 hover:bg-gray-800"
         onClick={() => {
           getCurrentPosition();
           setIsPush(true);

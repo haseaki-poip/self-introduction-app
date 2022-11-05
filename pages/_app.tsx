@@ -5,6 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import type {
   GeolocationContextType,
   GeolocationType,
+  ViewIdContextType,
 } from "../src/types/type";
 
 export const client = new ApolloClient({
@@ -16,18 +17,26 @@ const initGeolocation = {
   latitude: null,
   longitude: null,
 };
+
 export const GeolocationContext = createContext<GeolocationContextType>({
   position: initGeolocation,
   setPosition: (position) => {},
 });
+export const ViewIdContext = createContext<ViewIdContextType>({
+  viewId: null,
+  setViewId: (viewId) => {},
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   const [position, setPosition] = useState<GeolocationType>(initGeolocation);
+  const [viewId, setViewId] = useState<number | null>(null);
 
   return (
     <ApolloProvider client={client}>
       <GeolocationContext.Provider value={{ position, setPosition }}>
-        <Component {...pageProps} />
+        <ViewIdContext.Provider value={{ viewId, setViewId }}>
+          <Component {...pageProps} />
+        </ViewIdContext.Provider>
       </GeolocationContext.Provider>
     </ApolloProvider>
   );
