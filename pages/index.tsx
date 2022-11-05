@@ -4,18 +4,7 @@ import StartButtons from "../src/components/Home/StartButtons";
 const Home: NextPage = () => {
   return (
     <div className="bg-white pb-6 sm:pb-8">
-      <header className="border-b mb-8">
-        <div className="max-w-screen-2xl flex justify-between items-center px-4 md:px-8 mx-auto my-4">
-          <a
-            href="/"
-            className="text-green-900 inline-flex items-center text-black-800 text-2xl md:text-3xl font-bold gap-2.5"
-          >
-            E-SInt
-          </a>
-        </div>
-      </header>
-
-      <section className="max-w-screen-2xl px-4 md:px-8 mx-auto mt-12 sm:mt-0">
+      <section className="max-w-screen-2xl px-4 md:px-8 mx-auto mt-36 sm:mt-10">
         <div className="flex flex-wrap justify-between mb-20 md:mb-16">
           <div className="text-green-900 w-full lg:w-1/3 flex flex-col justify-center lg:pt-48 lg:pb-24 mb-12 lg:mb-0">
             <h1 className="text-6xl font-bold mb-8 hidden md:block">

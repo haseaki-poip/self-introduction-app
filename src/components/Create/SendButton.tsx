@@ -67,7 +67,7 @@ const SendButton = ({ image, inputData }: PropsType) => {
   return (
     <div className="mt-3 text-right">
       <button
-        className="ml-2 h-10 w-32 bg-blue-600 rounded text-white hover:bg-blue-700"
+        className="ml-2 h-10 w-32 bg-green-600 rounded text-white hover:bg-green-700"
         onClick={() => uploadToServer()}
       >
         {isSend ? (
