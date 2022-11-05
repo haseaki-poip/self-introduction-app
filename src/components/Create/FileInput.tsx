@@ -19,7 +19,7 @@ const FileInput = (props: PropsType) => {
   };
 
   return (
-    <div className="mr-2 sm:mr-8 md:10 relative h-32 w-32 rounded-lg border-2 border-blue-700 bg-gray-100 flex justify-center items-center">
+    <div className="mr-2 sm:mr-8 md:10 relative h-32 w-32 rounded-lg border-2 border-green-600 bg-gray-100 flex justify-center items-center">
       <div className="absolute">
         <div className="flex flex-col items-center">
           <label
