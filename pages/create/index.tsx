@@ -5,8 +5,10 @@ import { GeolocationContext } from "../_app";
 import SendButton from "../../src/components/Create/SendButton";
 import FileInput from "../../src/components/Create/FileInput";
 import Header from "../../src/components/Header";
+import { useRedirect } from "../../src/hooks/useRedirect";
 
 const Create: NextPage = () => {
+  useRedirect();
   const { position } = useContext(GeolocationContext);
   const [image, setImage] = useState<File>();
   const [createObjectURL, setCreateObjectURL] = useState<string>();
