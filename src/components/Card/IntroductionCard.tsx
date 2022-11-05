@@ -30,7 +30,7 @@ const IntroductionCard = () => {
   if (error) {
     alert("エラーが発生しました。");
     setViewId(null);
-    return;
+    return <div></div>; // IntroductionCardはpropsのchildrenとして使用されるためnullは許されない
   }
 
   const { Introduction }: { Introduction: IntroductionType } = data;
@@ -40,7 +40,7 @@ const IntroductionCard = () => {
     <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-28 lg:my-0">
       <div
         id="profile"
-        className="w-full lg:w-11/12 lg:flex rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white mx-6 lg:mx-0 lg:py-10"
+        className="w-full lg:w-11/12 lg:flex rounded-lg lg:rounded-lg shadow-2xl bg-white mx-6 lg:mx-0 lg:py-10"
       >
         <div className="lg:w-8/12 p-4 md:p-12 text-center lg:text-left">
           <div className="h-48 w-48 relative mx-auto -mt-16 flex lg:hidden">
