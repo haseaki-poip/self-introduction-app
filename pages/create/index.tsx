@@ -6,6 +6,7 @@ import SendButton from "../../src/components/Create/SendButton";
 import FileInput from "../../src/components/Create/FileInput";
 import Header from "../../src/components/Header";
 import { useRedirect } from "../../src/hooks/useRedirect";
+import { iconPathList } from "../../src/lib/IconPathList";
 
 const Create: NextPage = () => {
   useRedirect();
@@ -52,68 +53,148 @@ const Create: NextPage = () => {
                 </div>
               </div>
               <div className="mb-1">
-                <div className="text-sm">所属</div>
-                <input
-                  value={inputData.affiliation}
-                  onChange={(e) => {
-                    setInputData({ ...inputData, affiliation: e.target.value });
-                  }}
-                  type="text"
-                  className="h-10 px-3 w-full border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
-                />
-              </div>
-              <div className="mb-1">
-                <div className="text-sm">趣味</div>
-                <input
-                  value={inputData.hobby}
-                  onChange={(e) => {
-                    setInputData({ ...inputData, hobby: e.target.value });
-                  }}
-                  type="text"
-                  className="h-10 px-3 w-full border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
-                />
-              </div>
-              <div className="mb-1">
-                <div className="text-sm">自己紹介</div>
-                <textarea
-                  value={inputData.introduction}
-                  onChange={(e) => {
-                    setInputData({
-                      ...inputData,
-                      introduction: e.target.value,
-                    });
-                  }}
-                  className="h-20 py-1 px-3 w-full border-2 border-green-600 rounded focus:outline-none focus:border-green-800 resize-none"
-                ></textarea>
-              </div>
-              <div className="mb-1">
-                <div className="text-sm">SNS ユーザーネーム</div>
-                <div>
+                <div className="text-sm pl-7">所属</div>
+                <div className="flex justify-center items-center">
+                  <svg
+                    version="1.1"
+                    id="_x32_"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="h-5 fill-current text-green-700 pr-2"
+                  >
+                    <g>
+                      <path d={iconPathList.pin}></path>
+                    </g>
+                  </svg>
                   <input
-                    value={inputData.twitter_url ?? ""}
+                    value={inputData.affiliation}
                     onChange={(e) => {
                       setInputData({
                         ...inputData,
-                        twitter_url: e.target.value,
+                        affiliation: e.target.value,
                       });
                     }}
-                    placeholder="twitter"
                     type="text"
-                    className="mb-2 mr-3 h-9 w-5/12 px-3 border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
+                    className="h-10 px-3 w-full border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
                   />
-
+                </div>
+              </div>
+              <div className="mb-1">
+                <div className="text-sm pl-7">趣味</div>
+                <div className="flex justify-center items-center">
+                  <svg
+                    version="1.1"
+                    id="_x32_"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="h-5 fill-current text-green-700 pr-2"
+                  >
+                    <g>
+                      <path d={iconPathList.heart}></path>
+                    </g>
+                  </svg>
                   <input
-                    value={inputData.Instagram_url ?? ""}
+                    value={inputData.hobby}
+                    onChange={(e) => {
+                      setInputData({ ...inputData, hobby: e.target.value });
+                    }}
+                    type="text"
+                    className="h-10 px-3 w-full border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
+                  />
+                </div>
+              </div>
+              <div className="mb-1">
+                <div className="text-sm pl-7">自己紹介</div>
+                <div className="flex justify-center items-center">
+                  <svg
+                    version="1.1"
+                    id="_x32_"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="h-5 fill-current text-green-700 pr-2"
+                  >
+                    <g>
+                      <path d={iconPathList.List}></path>
+                    </g>
+                  </svg>
+                  <textarea
+                    value={inputData.introduction}
                     onChange={(e) => {
                       setInputData({
                         ...inputData,
-                        Instagram_url: e.target.value,
+                        introduction: e.target.value,
                       });
                     }}
-                    placeholder="Instagram"
-                    type="text"
-                    className="mb-2 mr-3 h-9 w-5/12 px-3 border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
-                  />
+                    className="h-20 py-1 px-3 w-full border-2 border-green-600 rounded focus:outline-none focus:border-green-800 resize-none"
+                  ></textarea>
+                </div>
+              </div>
+              <div className="pt-3 pb-1">
+                <div className="text-sm pl-7">SNS ユーザーネーム</div>
+                <div className="flex  w-full">
+                  <div className="flex items-center w-1/2">
+                    <svg
+                      version="1.1"
+                      id="_x32_"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      className="h-6 fill-current text-green-700 pr-2"
+                    >
+                      <g>
+                        <path d={iconPathList.twitter}></path>
+                      </g>
+                    </svg>
+                    <input
+                      value={inputData.twitter_url ?? ""}
+                      onChange={(e) => {
+                        setInputData({
+                          ...inputData,
+                          twitter_url: e.target.value,
+                        });
+                      }}
+                      placeholder="twitter"
+                      type="text"
+                      className="my-1 h-9 px-3 w-full border-green-600 border-2 rounded focus:outline-none focus:border-green-800 mr-3"
+                    />
+                  </div>
+                  <div className="flex items-center w-1/2">
+                    <svg
+                      version="1.1"
+                      id="_x32_"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      className="h-6 fill-current text-green-700 pr-2"
+                    >
+                      <g>
+                        <path d={iconPathList.Instagram}></path>
+                      </g>
+                    </svg>
+                    <input
+                      value={inputData.Instagram_url ?? ""}
+                      onChange={(e) => {
+                        setInputData({
+                          ...inputData,
+                          Instagram_url: e.target.value,
+                        });
+                      }}
+                      placeholder="Instagram"
+                      type="text"
+                      className="my-1 h-9 w-full px-3 border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center w-1/2">
+                  <svg
+                    version="1.1"
+                    id="_x32_"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="h-6 fill-current text-green-700 pr-2"
+                  >
+                    <g>
+                      <path d={iconPathList.github}></path>
+                    </g>
+                  </svg>
                   <input
                     value={inputData.github_url ?? ""}
                     onChange={(e) => {
@@ -124,11 +205,10 @@ const Create: NextPage = () => {
                     }}
                     placeholder="github"
                     type="text"
-                    className="mb-2 mr-3 h-9 w-5/12 px-3 border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
+                    className="my-1 mr-3 h-9 w-full px-3 border-green-600 border-2 rounded focus:outline-none focus:border-green-800"
                   />
                 </div>
               </div>
-
               <SendButton {...{ image, inputData }} />
             </div>
           </div>
