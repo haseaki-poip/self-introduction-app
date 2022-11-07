@@ -1,35 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [E-SInt](https://self-introduction-app.vercel.app/)
 
-## Getting Started
+## 概要
+自分の自己紹介カードを作成でき、同じ空間にいる人が作ったカードを閲覧できるwebアプリケーション。
+<br>
 
-First, run the development server:
+### 背景
+サークルの新歓や初対面の人と複数集まるイベントにおいて、数分前に聞いた名前や、趣味などを忘れてしまうことがあります。また初対面のため話のきっかけがなく、気まずい空気になってしまうことがあります。
+そこで、ユーザー登録なく、簡単に自己紹介カードを作成し、その場で他の人が作った自己紹介カードを閲覧できるアプリケーションを開発しました。
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### アプリ説明
+スタート画面で位置情報取得を許可することでアプリケーションが開始されます。開始後は自分の自己紹介カードを作成することや、位置情報が同じである人が作った自己紹介カードを閲覧することができます。
+自己紹介カードは12時間経過すると見ることができなくなります。またその場所から移動しても見ることができなくなります。
+![自己紹介カード](public/images/card_wide.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 特長
+#### 1. ユーザー登録不要
+ユーザー登録をせず、位置情報取得を許可するだけで使用できるので、初対面の人とのイベントでも簡単にすすめられ、アプリケーションを利用することができます。
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+#### 2. 位置情報を利用したマッチング
+位置情報を用いたマッチングをさせているため、その場にいる人だけが自己紹介を見ることができます。またその場限りなので、コミュニティーや場所に応じて簡単に自己紹介を変えられます。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+#### 3. 使用機種に応じたレスポンシブデザイン
+画面サイズに応じてデザインがレスポンシブに変更します。画面が小さい機種でも自己紹介カードが見やすいよう、スマホとパソコンではカードのデザインが変わるようになっています。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 開発技術
+### 活用した技術
+#### フレームワーク・ライブラリ・モジュール
+- Frontend: TypeScript, Next.js, Tailwind
+- Backend:  Next.js, ApolloServer, Graphql
+- Other:    Vercel, Firebase
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# self-introduction-app
+#### その他
+技術的な部分で、Graphqlについて学んでみたかったため、実際に実装し初めて使用してみました。<br>
+画像保存の部分にはFirebaseと連携し、そのstrageに保存するようにしています。
