@@ -29,7 +29,7 @@
 #### フレームワーク・ライブラリ・モジュール
 - Frontend: TypeScript, Next.js, Tailwind
 - Backend:  Next.js, ApolloServer, Graphql
-- Other:    Vercel, Firebase
+- Other:    Vercel, Firebase, Docker, Prisma
 
 #### その他
 技術的な部分で、Graphqlについて学んでみたかったため、実際に実装し初めて使用してみました。<br>
