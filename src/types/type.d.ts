@@ -1,3 +1,11 @@
+type Context = {
+  prisma: PrismaClient<
+    Prisma.PrismaClientOptions,
+    never,
+    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
+  >;
+};
+
 export type GeolocationType = {
   latitude: number | null;
   longitude: number | null;

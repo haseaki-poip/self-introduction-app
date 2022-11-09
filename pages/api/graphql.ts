@@ -1,116 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer } from "apollo-server-micro";
 import { PrismaClient, Prisma } from "@prisma/client";
-import { SendIntroductionType } from "../../src/types/type";
-type Context = {
-  prisma: PrismaClient<
-    Prisma.PrismaClientOptions,
-    never,
-    Prisma.RejectOnNotFound | Prisma.RejectPerOperation
-  >;
-};
-
-const lng_lat_threshold = 0.00035; // 同じ範囲とみなす経度・緯度の差
-const nowDate = new Date();
-const date_threshold = new Date(nowDate.setHours(nowDate.getHours() - 12)); // 12時間前まで
+import { typeDefs } from "../../src/schema";
+import { Query } from "../../src/resolvers/Query";
+import { Mutation } from "../../src/resolvers/Mutation";
 
 const prisma = new PrismaClient();
 
-const typeDefs = gql`
-  type Introduction {
-    id: Int!
-    name: String!
-    affiliation: String!
-    introduction: String!
-    hobby: String!
-    img_url: String
-    twitter_url: String
-    Instagram_url: String
-    github_url: String
-    lng: Float!
-    lat: Float!
-  }
-
-  type Query {
-    Introduction(id: Int!): Introduction!
-    Introductions(lng: Float!, lat: Float!): [Introduction]!
-  }
-
-  input AddIntroductionInput {
-    name: String!
-    affiliation: String!
-    introduction: String!
-    hobby: String!
-    img_url: String
-    twitter_url: String
-    Instagram_url: String
-    github_url: String
-    lng: Float!
-    lat: Float!
-  }
-
-  type Mutation {
-    addIntroduction(input: AddIntroductionInput!): Introduction!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    Introductions: async (
-      parent: undefined,
-      args: { lat: number; lng: number },
-      context: Context
-    ) => {
-      return await context.prisma.introduction.findMany({
-        where: {
-          AND: {
-            lat: {
-              lte: args.lat + lng_lat_threshold,
-              gte: args.lat - lng_lat_threshold,
-            },
-            lng: {
-              lte: args.lng + lng_lat_threshold,
-              gte: args.lng - lng_lat_threshold,
-            },
-            createdAt: {
-              gt: date_threshold,
-            },
-          },
-        },
-      });
-    },
-
-    Introduction: async (
-      parent: undefined,
-      { id }: { id: number },
-      context: Context
-    ) => {
-      return await context.prisma.introduction.findUnique({
-        where: {
-          id,
-        },
-      });
-    },
-  },
-
-  Mutation: {
-    addIntroduction: async (
-      parent: undefined,
-      { input }: { input: SendIntroductionType },
-      context: Context
-    ) => {
-      const newIntroduction = await context.prisma.introduction.create({
-        data: input,
-      });
-
-      return newIntroduction;
-    },
-  },
-};
-
 const apolloServer = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: {
+    Query,
+    Mutation,
+  },
   context: {
     prisma,
   },
