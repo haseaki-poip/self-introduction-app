@@ -1,40 +1,15 @@
 import { iconPathList } from "../../lib/IconPathList";
-import { gql, useQuery } from "@apollo/client";
 import { useContext } from "react";
 import { ViewIdContext } from "../../../pages/_app";
 import { IntroductionType } from "../../types/type";
 import SnsLinks from "./SnsLinks";
 
-const GET_Introduction = gql`
-  query ($introductionId: Int!) {
-    Introduction(id: $introductionId) {
-      id
-      name
-      affiliation
-      introduction
-      hobby
-      img_url
-      twitter_url
-      Instagram_url
-      github_url
-    }
-  }
-`;
+type PropsType = {
+  Introduction: IntroductionType;
+};
 
-const IntroductionCard = () => {
+const IntroductionCard = ({ Introduction }: PropsType) => {
   const { viewId, setViewId } = useContext(ViewIdContext);
-  const { data, loading, error } = useQuery(GET_Introduction, {
-    variables: { introductionId: viewId },
-  });
-
-  if (loading) return <Loading />;
-  if (error) {
-    alert("エラーが発生しました。");
-    setViewId(null);
-    return <div></div>; // IntroductionCardはpropsのchildrenとして使用されるためnullは許されない
-  }
-
-  const { Introduction }: { Introduction: IntroductionType } = data;
 
   return (
     <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-28 lg:my-0">
@@ -102,14 +77,6 @@ const IntroductionCard = () => {
       </div>
 
       <CloseButton handleButton={() => setViewId(null)} />
-    </div>
-  );
-};
-
-const Loading = () => {
-  return (
-    <div className="h-screen flex items-center justify-center">
-      <div className="my-auto animate-spin h-20 w-20 border-4 border-white rounded-full border-t-transparent"></div>
     </div>
   );
 };
