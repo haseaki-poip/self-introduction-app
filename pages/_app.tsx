@@ -1,15 +1,21 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { createContext, useState } from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
 import type {
   GeolocationContextType,
   GeolocationType,
   ViewIdContextType,
 } from "../src/types/type";
-
+import fetch from "cross-fetch";
 export const client = new ApolloClient({
-  uri: "/api/graphql",
+  link: new HttpLink({ uri: "/api/graphql", fetch }),
+
   cache: new InMemoryCache(),
 });
 
