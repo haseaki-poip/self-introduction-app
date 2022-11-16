@@ -9,6 +9,7 @@ const GeolocationButton = ({ getCurrentPosition }: PropsType) => {
   return (
     <div className="flex">
       <div
+        data-testid="GeolocationButton"
         className="inline-flex items-center px-8 py-3 text-white transition bg-green-900 rounded-full shadow-lg focus:outline-none focus:ring focus:bg-teal-600 hover:bg-gray-800"
         onClick={() => {
           getCurrentPosition();
@@ -20,7 +21,10 @@ const GeolocationButton = ({ getCurrentPosition }: PropsType) => {
 
       {isPush ? (
         <div className="flex justify-center">
-          <div className="my-auto ml-5 animate-spin h-8 w-8 border-2 border-gray-500 rounded-full border-t-transparent"></div>
+          <div
+            data-testid="Loading"
+            className="my-auto ml-5 animate-spin h-8 w-8 border-2 border-gray-500 rounded-full border-t-transparent"
+          ></div>
         </div>
       ) : null}
     </div>
