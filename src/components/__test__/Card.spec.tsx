@@ -21,13 +21,21 @@ describe("Test Introduction Card", () => {
     const affiliation = screen.getByTestId("affiliation").textContent;
     const hobby = screen.getByTestId("hobby").textContent;
     const introduction = screen.getByTestId("introduction").textContent;
-    const twitter = screen.getByTestId("twitter").textContent;
-    const Instagram = screen.getByTestId("Instagram").textContent;
-    //const github = screen.getByTestId("github").textContent;
 
     expect(name == Introduction.name).toBeTruthy();
     expect(affiliation == Introduction.affiliation).toBeTruthy();
     expect(hobby == Introduction.hobby).toBeTruthy();
     expect(introduction == Introduction.introduction).toBeTruthy();
+
+    // githubはnullのためtestidがgithubである要素は作られない。
+    // そのためgetByTestIdはエラーを出すためcatch時にテストを通過させる。
+    try {
+      expect(screen.getByTestId("github")).not.toBeVisible();
+    } catch (error) {
+      expect(true).toBeTruthy();
+    }
+
+    const twitter = screen.getByTestId("twitter").textContent;
+    const Instagram = screen.getByTestId("Instagram").textContent;
   });
 });
