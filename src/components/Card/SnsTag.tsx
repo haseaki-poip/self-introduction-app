@@ -17,7 +17,7 @@ const SnsTag = ({ sns_url, snsName }: PropsType) => {
   const sns_href = snsUrlList[snsName] + sns_url;
 
   return (
-    <a className="link px-3" href={sns_href}>
+    <a data-testid={snsName} className="link px-3" href={sns_href}>
       <svg
         className="h-6 fill-current text-gray-600 hover:text-green-700"
         role="img"

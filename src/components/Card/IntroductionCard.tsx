@@ -25,11 +25,14 @@ const IntroductionCard = ({ Introduction }: PropsType) => {
             />
           </div>
 
-          <h1 className="text-3xl font-bold pt-8 lg:pt-0">
+          <h1 data-testid="name" className="text-3xl font-bold pt-8 lg:pt-0">
             {Introduction.name}
           </h1>
           <div className="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
-          <p className="pt-4 text-gray-600 text-base lg:text-xl flex items-center justify-center lg:justify-start">
+          <p
+            data-testid="affiliation"
+            className="pt-4 text-gray-600 text-base lg:text-xl flex items-center justify-center lg:justify-start"
+          >
             <svg
               version="1.1"
               id="_x32_"
@@ -43,7 +46,10 @@ const IntroductionCard = ({ Introduction }: PropsType) => {
             </svg>
             {Introduction.affiliation}
           </p>
-          <p className="pt-4 text-base lg:text-xl flex items-center justify-center lg:justify-start">
+          <p
+            data-testid="hobby"
+            className="pt-4 text-base lg:text-xl flex items-center justify-center lg:justify-start"
+          >
             <svg
               version="1.1"
               id="_x32_"
@@ -58,7 +64,9 @@ const IntroductionCard = ({ Introduction }: PropsType) => {
             {Introduction.hobby}
           </p>
 
-          <p className="pt-8 text-xl">{Introduction.introduction}</p>
+          <p data-testid="introduction" className="pt-8 text-xl">
+            {Introduction.introduction}
+          </p>
 
           <SnsLinks
             twitter_url={Introduction.twitter_url}

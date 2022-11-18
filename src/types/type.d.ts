@@ -22,7 +22,7 @@ export type ViewIdContextType = {
 };
 
 export type IntroductionType = {
-  id: number;
+  id?: number;
   name: string;
   affiliation: string;
   introduction: string;
