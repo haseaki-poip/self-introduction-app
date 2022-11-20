@@ -81,7 +81,7 @@ const Gallery = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 xl:gap-8 mb-4 md:mb-8">
         {introductions.map((introduction, key) => (
           <div
-            onClick={() => setViewId(introduction.id)}
+            onClick={() => setViewId(introduction.id!)}
             key={key}
             className="group h-48 md:h-80 flex items-end bg-gray-100 overflow-hidden rounded-lg shadow-lg relative"
           >
