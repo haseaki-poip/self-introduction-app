@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import IntroductionCard from "../Card/IntroductionCard";
 
@@ -35,7 +35,17 @@ describe("Test Introduction Card", () => {
       expect(true).toBeTruthy();
     }
 
-    const twitter = screen.getByTestId("twitter").textContent;
-    const Instagram = screen.getByTestId("Instagram").textContent;
+    // snsのリンクテスト
+    const twitter_url = "https://twitter.com/" + Introduction.twitter_url;
+    const Instagram_url =
+      "https://www.instagram.com/" + Introduction.Instagram_url;
+    expect(screen.getByTestId("twitter").closest("a")).toHaveAttribute(
+      "href",
+      twitter_url
+    );
+    expect(screen.getByTestId("Instagram").closest("a")).toHaveAttribute(
+      "href",
+      Instagram_url
+    );
   });
 });
